@@ -1,20 +1,5 @@
 # TopPick AI 
 **Bridging Technical Specs and Customer Reviews for Precise Laptop Recommendations**  
-_Senior Project at Beirut Arab University_
-
-## Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [System Architecture](#system-architecture)
-- [How It Works](#how-it-works)
-- [Dataset](#dataset)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Evaluation](#evaluation)
-- [Project Team](#project-team)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
 
 ---
 
@@ -148,27 +133,6 @@ python app.py
 
 - **TOPSIS Personalization**:
   - Dynamic ranking based on weighted user priorities.
-
----
-
-## 👥 Project Team
-
-| Name            | ID         |
-|-----------------|------------|
-| Sandi El Zein   | 202301685  |
-| Farah Hamze     | 202303788  |
-| Amani Merhi     | 202304693  |
-| Lin Noureddine  | 202302341  |
-
-**Supervisor**: Dr. Lama Affara  
-**Faculty**: Faculty of Science, Department of Computer Science – BAU  
-**Date**: May 2025
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 

@@ -1,0 +1,98 @@
+version: "3.1"
+
+#the stories.yml file has training data for conversation flows that map intents to actions 
+
+stories:
+  - story: happ path - complete form and get recommendation
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: provide_information
+      - action: action_pre_form_validation
+      - action: laptop_specs_form
+      - active_loop: laptop_specs_form
+      - slot_was_set: 
+        - requested_slot: budget
+      - slot_was_set: 
+        - budget: [1000]
+      - slot_was_set: 
+        - requested_slot: laptop_type
+      - slot_was_set: 
+        - budget: "work"
+      - slot_was_set: 
+        - requested_slot: storage_type
+      - slot_was_set: 
+        - budget: "SSD"
+      - slot_was_set: 
+        - requested_slot: storage
+      - slot_was_set: 
+        - budget: ["512GB"]
+      - slot_was_set: 
+        - requested_slot: ram
+      - slot_was_set: 
+        - budget: "16GB"
+      - slot_was_set: 
+        - requested_slot: processor
+      - slot_was_set: 
+        - budget: "Intel Core i7"
+      - slot_was_set: 
+        - requested_slot: gpu
+      - slot_was_set: 
+        - budget: "entry level"
+      - slot_was_set: 
+        - requested_slot: screen_size
+      - slot_was_set: 
+        - budget: "15"
+      - slot_was_set: 
+        - requested_slot: resolution
+      - slot_was_set: 
+        - budget: "HD"
+      - slot_was_set: 
+        - requested_slot: os
+      - slot_was_set: 
+        - budget: "Windows 10"
+      - slot_was_set: 
+        - requested_slot: budget
+      - slot_was_set: 
+        - budget: "Dell"
+      - active_loop: null
+      - action: action_summarize
+      - intent: keep_preferences
+      - action: action_trigger_scores
+      - intent: submit_priorities
+      - action: action_provide_recommendation
+
+  - story: sad path - invalid budget entered
+    steps:
+      - intent: provide_information
+      - action: action_pre_form_validation
+      - action: laptop_specs_form
+      - active_loop: laptop_specs_form
+      - slot_was_set:
+        - requested_slot: budget
+      - slot_was_set:
+          - budget: [10000]
+      - action: action_listen
+
+  - story: form interruption - users asks a question
+    steps:
+      - intent: provide_information
+      - action: action_pre_form_validation
+      - action: laptop_specs_form
+      - active_loop: laptop_specs_form
+      - slot_was_set:
+        - requested_slot: gpu
+      - intent: clarify_component
+      - action: action_explain_component
+      - action: laptop_specs_form
+      - active_loop: laptop_specs_form
+
+  - story: form restart
+    steps:
+      - intent: ask_recommendation
+      - action: laptop_specs_form
+      - active_loop: laptop_specs_form
+      - intent: restart
+      - action: action_restart
+      - intent: greet
+      - action: utter_greet

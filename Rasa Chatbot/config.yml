@@ -1,0 +1,55 @@
+recipe: default.v1
+
+assistant_id: TopPickChatbot
+
+language: en
+
+pipeline:
+    - name: WhitespaceTokenizer #for text processing 
+    - name: RegexFeaturizer #for text processing 
+      use_lookup_tables: true
+      use_regexes: true
+      case_sensitive: false
+    - name: LexicalSyntacticFeaturizer
+    - name: CountVectorsFeaturizer
+      analyzer: char_wb
+      min_ngram: 1
+      max_ngram: 4
+    - name: CountVectorsFeaturizer #for feature representation
+      analyzer: word
+      min_ngram: 1
+      max_ngram: 2
+    - name: DIETClassifier #for intent classification and entity extraction
+      epochs: 100 #trained on a 100 epochs
+      constrain_similarities: true
+      ranking_length: 5
+      intent_classification: True
+      entity_recognition: True
+      tensorboard_log_directory: "./tensorboard_logs" #for evaluation purposes
+      tensorboard_log_level: "epoch"
+    - name: EntitySynonymMapper
+    - name: ResponseSelector
+      epochs: 100 
+      constrain_similarities: true
+    - name: FallbackClassifier #for classifying nlu_fallback messages
+      threshold: 0.3
+      ambiguity_threshold: 0.1
+
+policies:
+  - name: MemoizationPolicy
+  - name: RulePolicy
+    core_fallback_threshold: 0.3
+    core_fallback_action_name: "utter_out_of_scope"
+    enable_fallback_prediction: true
+  - name: UnexpecTEDIntentPolicy
+    max_history: 5
+    epochs: 100
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 100
+    constrain_similarities: true
+    nlu_threshold: 0.4
+    core_fallback_action_name: "utter_out_of_scope"
+    core_fallback_threshold: 0.3
+    enable_fallback_prediction: true
+

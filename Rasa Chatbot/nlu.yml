@@ -1,0 +1,1246 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - hey there
+    - let's go
+    - hey TopPick
+    - good afternoon
+    - Hey bot
+    - Whats up
+- intent: thank
+  examples: |
+    - thank you
+    - thanks
+    - thanks for your help
+    - I apppreciate it
+    - much appreciated
+    - thank you for the suggestions
+    - thank you for this recommendation
+    - thank you for this laptop recommendation
+    - thank you for this [Dell](brand_name) laptop recommendation
+    - thank you for this [under $1000](budget) laptop recommendation
+    - thank you for this [Apple](brand_name) laptop suggestion
+    - appreciate the help in choosing a laptop with a [1TB](storage_size) [SSD](storage_type)
+    - thanks for suggesting a [gaming](laptop_type) laptop
+    - appreciate the suggestion for a [lightweight](weight) laptop
+    - I appreciate the recommendation for a [16GB](ram) [RAM](component) laptop
+    - appreciate the recommendation for a [long battery life](battery_life) laptop
+    - Thanks for these recommendations
+    - Thank you for these recommendations
+- intent: ask_recommendation
+  examples: |
+    - I need a laptop
+    - Can you recommend me a laptop?
+    - What laptop should i buy?
+    - Help me decide on which laptop to buy
+    - I want help deciding on a laptop to buy
+    - Help me find a suitable laptop
+- intent: provide_information
+  examples: |
+    - Help me with choosing a new [gaming](laptop_type) laptop
+    - Recommend me a laptop [under $1000](budget)
+    - Recommend a laptop with [at least 16 GB](ram) [RAM](component)
+    - Suggest a laptop that has a [1TB](storage_size) [SSD](storage_type)
+    - I need a laptop between [$1000](budget) and [$1500](budget)
+    - I'm looking for a [lightweight](weight) laptop [atleast $1000](budget)
+    - Laptop [atleast 1000 USD](budget)
+    - I need a laptop with an [AMD Ryzen 9](processor)
+    - I have a budget of [$700](budget), and I need at least [16GB](ram) [RAM](component)
+    - Need a laptop that can become a [tablet](feature)
+    - I'm looking for a laptop that has an [AMD Ryzen 7](processor)
+    - I want something with a [10-hour battery](battery_life)
+    - Looking for a laptop that lasts [over 8 hours](battery_life)
+    - I'm looking for a laptop with a [GTX 1650](gpu)
+    - I want something that has an [RTX 4060](gpu)
+    - I want a laptop with a [15.6 inch](screen_size) [screen](component)
+    - I want something with an [Intel Core i9](processor)
+    - I need a laptop with an [RTX 3060](gpu)
+    - I'm looking for a laptop with a [Radeon RX 6800M](gpu)
+    - I want something that has an [RTX 4070](gpu)
+    - I need a laptop with [long battery life](battery_life)
+    - I need a laptop with an [Intel Core i7](processor)
+    - I'm looking for a [lightweight](weight) laptop
+    - My budget is [$900](budget)
+    - My budget is [less than 1000 dollars](budget)
+    - I want [Windows](os)
+    - I need [1TB](storage_size) of [storage](component)
+    - I need this laptop for [general use](laptop_type)
+    - I will be using this laptop for [everday use](laptop_type)
+    - I need this laptop for [gaming](laptop_type)
+    - I perfer [16GB](ram) [RAM](component)
+    - [Windows](os)
+    - between [$1000](budget) and [$1200](budget)
+    - [under $1200](budget)
+    - [Dell](brand_name)
+    - [HP](brand_name)
+    - [Apple](brand_name)
+    - [Chrome OS](os)
+    - [Linux](os)
+    - I want a [Linux](os) laptop
+    - I want the laptop to have [Chrome OS](os)
+    - I want a [Razer](brand_name) laptop
+    - I need something from [Samsung](brand_name) laptop
+    - I'd like an [Acer](brand_name) gaming laptop
+    - [Gaming](laptop_type)
+    - I want a laptop good for [everyday use](laptop_type)
+    - [Intel Core i7](processor)
+    - [AMD Ryzen 7](processor)
+    - [Apple M2](processor)
+    - [AMD Ryzen 9](processor)
+    - [512GB](storage_size) [SSD](storage_type)
+    - [1TB](storage_size) [SSD](storage_type)
+    - [2TB](storage_size) [SSD](storage_type)
+    - I prefer [SSD](storage_type)
+    - I want an [SSD](storage_type) [hard disk](component)
+    - I prefer to have an [SSD](storage_size)
+    - [256GB](storage_size)
+    - [RTX 3060](gpu)
+    - [RTX 4070](gpu)
+    - [GTX 1650](gpu)
+    - [NVIDIA GeForce GTX 1660](gpu)
+    - [AMD Radeon RX 580](gpu)
+    - [Radeon RX 6800M](gpu)
+    - [Intel Iris Xe](gpu)
+    - [14-inch](screen_size)
+    - [15.6](screen_size)
+    - [17-inch](screen_size)
+    - [13.3-inch](screen_size)
+    - [16 inch](screen_size)
+    - [1080p](resolution)
+    - [4K](resolution)
+    - [Full HD](resolution)
+    - [4K](resolution) display
+    - I want [4K](resolution) resolution
+    - [Ultra HD](resolution)
+    - [2K](resolution) resolution
+    - I want [normal resolution](resolution)
+    - I want a laptop with [medium resolution](resolution)
+    - [1440p](resolution) resolution would be great
+    - [8 hours](battery_life)
+    - [10 hours](battery_life)
+    - [12 hours](battery_life)
+    - [All-day battery](battery_life)
+    - [15.6 inch](screen_size)
+    - [Under 2kg](weight)
+    - [1.5kg](weight)
+    - [Lightweight](weight)
+    - [macOS](os)
+    - [Linux](os)
+    - [ChromeOS](os)
+    - [Touchscreen](feature)
+    - [Backlit Keyboard](feature)
+    - Just need something [under $800](budget)
+    - Something [lightweight](weight) because I travel often
+    - I need at least [16GB](ram) RAM
+    - At least [512GB](storage_size) SSD
+    - I want a [14-inch](screen_size) laptop
+    - Battery should last at least [8 hours](battery_life)
+    - I want a [16 GB](ram) [RAM](component)
+    - I need [32 GB](ram) [RAM](component)
+    - [8GB](ram) is fine for me
+    - My laptop should have at least [16GB](ram) of [RAM](component)
+    - A laptop with [64GB](ram) [RAM](component) would be great
+    - [4GB](ram) is enough for me
+    - A [gaming](laptop_type) laptop
+    - I need a [light](weight) laptop
+    - Looking for something [light](weight) and easy to carry
+    - A [lightweight](weight) laptop for travel
+    - I need something with [extended battery life](battery_life)
+    - I would like [Intel core i7](processor) then
+    - I want [Ultra HD](resolution) resolution
+    - I want a laptop with an [anti-glare](feature) display
+    - Can I get a laptop with a [backlit keyboard](feature)?
+    - I'd like a laptop with a [fingerprint reader](feature)
+    - I need a laptop that has a [narrow bezel](feature)
+    - A laptop with a [thin bezel](feature) would be great
+    - I prefer a screen that has an [anti-glare](feature) coating
+    - I'm looking for something with an [RGB backlit keyboard](feature)
+    - I want a laptop with built-in [Alexa](feature] assistant
+    - I will use it for [everyday use](laptop_type)
+    - [everyday use](laptop_type)
+    - [16GB](ram)
+    - [NVIDIA GeForce MX350](gpu)
+    - I prefer a [16 inch](screen_size) screen
+    - I want a [32GB](ram) [ram](component)
+    - [Intel Core i9](processor)
+    - [NVIDIA GeFroce RTX 1600](gpu)
+    - [NVIDIA GeForce RTX 1600](gpu)
+    - I want a laptop for [everyday use](laptop_type) with [16GB](ram) [ram](component) and [1TB](storage_size) [SSD](storage_type)
+    - [1200 dollars](budget)
+    - I want an [Intel Core i7](processor)
+    - I want a [NVIDIA GeForce RTX 3050](gpu)
+    - I want a [16 inch](screen_size) screen
+    - I want a laptop with [4K](resolution) resolution
+    - I need a laptop with a [high-resolution](resolution) display
+    - I want an [HP](brand_name) laptop
+    - I want a [Dell](brand_name) laptop
+    - I need something from [Samsung](brand_name)
+    - I'm looking for an [Acer](brand_name) laptop
+    - Give me a recommendation for an [MSI](brand_name) laptop
+    - I need a laptop [under $1000](budget)
+    - I want [1TB](storage_size)
+    - I need a [gaming](laptop_type) laptop with [2TB](storage_size) [SSD](storage_type) and my budget is [$1500](budget)
+    - I need a laptop [under $1000](budget)
+    - My budget is [between $1000 and $1500](budget)
+    - Can you suggest a [Dell](brand_name) laptop?
+    - I'm looking for a [Razer](brand_name) laptop
+    - I need a laptop with a [15.6-inch](screen_size) screen
+    - My laptop should have [512GB](storage_size) storage
+    - I want at least [16GB](ram) RAM
+    - I need a lightweight laptop [under $1200](budget)
+    - I prefer an [AMD](processor) CPU
+    - I need a laptop with [1TB](storage_size) [SSD](storage_type)
+    - I want a gaming laptop with an [NVIDIA](gpu) graphics card
+    - The laptop should have a [4K](resolution) resolution
+    - I want a device with an [RGB backlit keyboard](feature)
+    - I want a laptop with a [touchscreen](resolution)
+    - I want it to have a narrow bezel
+    - Battery life should be at least [10 hours](battery_life)
+    - Weight should be [less than 2kg](weight)
+    - I want a laptop for [everyday use](laptop_type)
+    - My budget is [under $1000](budget)
+    - i want [16GB](ram) [ram](component)
+    - I want an [AMD Ryzen 7](processor)
+    - I want a laptop with a [AMD Radeon Vega 8](gpu)
+    - I want a [AMD Radeon Vega 8](gpu)
+    - I need a laptop with [hybrid drive](storage_type)
+    - A [hybrid drive](storage_type) would be ideal for me
+    - I prefer a laptop with [hybrid drive](storage_type)
+    - Looking for a [hybrid SSD + HDD](storage_type)
+    - I need both [SSD + HDD](storage_type) for storage
+    - I want a [gaming](laptop_type) laptop
+    - My budget is [over $1500](budget)
+    - I prefer [ssd](storage_type)
+    - I want [2tb](storage_size) of [storage](component)
+    - I want [32gb](ram) of [ram](component)
+    - [8 GB](ram)
+    - [16 gb](ram)
+    - I want an [intel i9](processor)
+    - I want a [nvidia geforce rtx 3070](gpu)
+    - i prefer a [16 inch](screen_size) screen
+    - An [acer](brand_name) laptop would be great
+    - I want over [8 hours](battery_life) of [battery life](battery_life)
+    - Yes, i want a [lightweight](weight) laptop
+    - I want [high](resolution) screen resolution
+    - i want an [RGB backlit keyboard](feature)
+    - I want a laptop with [16GB](ram) [ram](component), [hybrid drive](storage_type) and [2TB](storage_size) storage
+    - My budget is [$1100](budget)
+    - I want it for [everyday use](laptop_type)
+    - I want [Intel Core i7](processor)
+    - Any [NVIDIA](gpu) [gpu](component) would be good
+    - I prefer to have [Windows](os) as the [operating system](component)
+    - I prefer to have [Windows](os) as the os
+    - I expect [4 hours](battery_life) of [battery life](battery_life)
+    - I want [normal resolution](resolution)
+    - I want a laptop [under $1000](budget)
+    - I will use it [everyday](laptop_type)
+    - I want [SSD](storage_type)
+    - I need [1TB](storage_size)
+    - I need [16GB](ram) [ram](component)
+    - I thin [Intel Core i7](processor) would be a good choice
+    - I think an [Intel Core i7](processor) would be good
+    - I would like a [NVIDIA GeForce](gpu)
+    - Yes, i want something [lightweight](weight)
+    - I want a [mid range](gpu) gpu
+    - An [entry level](gpu) gpu sounds good
+    - I want a [high end](gpu) graphics card 
+    - I would like it to have a [high-end](gpu) gpu
+    - An [entry-level](gpu) gpu should be enough
+    - I think a [mid-range](gpu) gpu would be good for my needs 
+    - I want [integrated graphics](gpu)
+    - [Integrated graphics](gpu) sound good
+    - [no graphics card](gpu)
+    - I dont want a [gpu](gpu)
+    - I prefer laptops without a [gpu](gpu)
+    - [no gpu](gpu) needed
+    - I dont want a [graphics card](gpu)
+    - I would prefer my laptop to not have a [gpu](gpu)
+    - I want a [2K](resolution) screen
+    - Looking for a [4K](resolution) display
+    - Give me something with [Full HD](resolution)
+    - Just [HD](resolution) is fine
+    - Any [Other](resolution) resolution is okay
+    - I want [dual](storage_type) storage
+    - I want [dual SSD](storage_type) for storage
+    - I want [Dual HDD](storage_type)
+    - Give me [Dual SSD](storage_type) for the storage
+    - I prefer [Dual SSD](storage_type) since it's faster
+    - I want my laptop to have both [SSD and HDD](storage_type)
+    - I want [512GB + 1TB](storage_size)
+    - Give me [256GB and 512GB](storage_size)
+    - I need [128GB plus 512GB](storage_size)
+    - [1TB and 1TB](storage_size)
+    - I want [at most $800](budget)
+    - My budget is [at most $1000](budget)
+    - i want a laptop for [at most 1000 dollars](budget)
+    - my budget is  [maximum $1000](budget)
+    - I want a [gaming](laptop_type) laptop for at most $1200 with 16GB, 512GB SSD, a mid range gpu, Intel Core i7, Windows 10, screen size of 16 inches with Ultra HD resolution  
+    - I want a laptop for [school](laptop_type)
+    - I need this laptop for [school](laptop_type) purposes
+    - I want a laptop for [video editing](laptop_type) purposes
+    - I want a laptop for [gaming](laptop_type) purposes
+    - I'm looking for a [business](laptop_type) laptop
+    - I want a laptop for [photo editing](laptop_type) purposes
+    - I need a laptop for [animation](laptop_type)
+    - I need a laptop made for [students](laptop_type)
+    - I need a laptop suitable for [work](laptop_type)
+    - I will use this laptop for [work](laptop_type)
+    - I need a laptop for the [office](laptop_type)
+    - I want a laptop for [university](laptop_type)
+    - I want a [programming](laptop_type) laptop
+    - I need a laptop for [coding](laptop_type)
+    - I need a laptop for [game development](laptop_type)
+    - The laptop should suit [development](laptop_type) purposes
+    - I want a laptop for [developers](laptop_type)
+    - This laptop should be for [coders](laptop_type)
+    - i want a [gaming](laptop_type) laptop with [16 gb](ram) ram, [1 TB](storage_size) [SSD](storage_type), a [mid range](gpu) gpu and [Core i7](processor) cpu for [$1200](budget)
+    - [512 gb](storage_size)
+    - [16 gb](ram)
+    - [8 gb](ram)
+    - [1 TB](storage_size)
+    - [1 tb](storage_size)
+    - [256 gb](storage_size)
+    - [1 TB](storage_size)
+- intent: specify_no_preference
+  examples: |
+    - I have no preference for [battery life](component)
+    - I don't have a preference for [storage type](component)
+    - No preference for [storage](component)
+    - Any [operating system](component) is fine
+    - Any [storage type](component) is fine with me
+    - No preference
+    - Any [CPU](component) is fine
+    - I don't mind
+    - Just give me anything
+    - I just want it to be good
+    - I don't care which [resolution](component) my laptop has
+    - Give me any [screen size](component)
+    - No, [weight](component) doesn't matter to me
+    - Any [brand](component) is okay
+    - I don't have a specific [budget](component)
+    - I don't have a [budget](component)
+    - I have no preference
+    - I don't really care
+    - Any option works for me
+    - Whatever you think is best
+    - Doesn't matter to me
+    - Anything is fine
+    - Anything that works
+    - I just want something decent
+    - I just want something good
+    - Whatever works best
+    - I don't have a strong opinion
+    - I'm open to any option
+    - I have no particular choice
+    - Anything works for me
+    - I'm okay with anything
+    - My [budget](component) is flexible
+    - I have no specific [budget](component)
+    - Whatever fits my needs is fine
+    - I'm not picky about [resolution](component)
+    - I don't mind what [graphics card](component) it has
+    - Doesn't matter what [operating system](component) it has
+    - No preference for [screen size](component)
+    - Any [brand](component) is fine
+    - I don't care about the [GPU](component)
+    - [Budget](component) is flexible
+    - Any [processor](component) works for me
+    - I dont have a preference
+    - I dont have an [operating system](component) preference
+    - Any [screen resolution](component) would be good
+    - I dont care for [screen size](component), any is good
+    - Any [brand](component) would be good
+    - No, i dont want any specail [features](component)
+    - I dont have a preference for [screen size](component)
+    - No [brand](component) preference either
+    - No, any [screen resolution](component) is good
+    - No specific feature is needed
+- intent: change_preference
+  examples: |
+    - I think I need more storage. Can you find something with [1TB SSD](storage_size)?
+    - I need a larger screen, maybe a [17 inch](screen_size) laptop
+    - I'd like to increase my budget to [$1500](budget)
+    - I realized I prefer an [Intel core i9](processor) over AMD
+    - I don't need that much RAM. A [16GB](ram) option should be fine
+    - Actually, I need a lighter laptop, preferably under [4 pounds](weight)
+    - I want a longer battery life, at least [10 hours](battery_life)
+    - Instead of a [Windows](os), I want a [Linux](os) laptop
+    - I want to update my budget to [$2000](budget)
+    - I changed my mind, my budget is now [$1800](budget)
+    - Actually, make my budget [$900](budget) instead
+    - Let's increase the budget to [$1200](budget)
+    - I want to lower my budget to [$1000](budget)
+    - Adjust my budget to [$2500](budget) please
+    - I want something with [1080p](resolution) instead
+    - Modify my GPU preference to [RTX 3070](gpu)
+    - Change my graphics card to [RTX 3080](gpu)
+    - I've changed my mind, I want a [Dell](brand_name) laptop instead
+    - Can we go for an [Asus](brand_name) laptop instead?
+    - I prefer a [Microsoft](brand_name) over [HP](brand_name) actually
+    - Let's go with [32GB](storage_size) for better multitasking
+    - Actually, I need a laptop with an [anti-glare](feature) display
+    - Can we add a [backlit keyboard](feature) to my preferences?
+    - I want to switch to a laptop with a [fingerprint reader](feature)
+    - I changed my mind, I'd like something with [Alexa](feature)
+    - Actually, i want the laptop to be a [Lenovo](brand_name) laptop
+- intent: keep_preferences
+  examples: |
+    - I don't want to change anything
+    - Keep my preferences the same
+    - No changes needed
+    - I don't want to change my preferences
+    - No, this is good
+    - Leave everything as is
+    - Don't modify my choices
+    - I'm happy with my selections
+    - No, i don't want to change anything
+    - Everything is fine as it is
+    - Nope, no changes for now
+    - No, I like these preferences
+    - No, let's stick with this
+    - I'm good with these choices
+    - Keep everything the same
+    - No, I don't want to change anything
+    - Let's move forward with this
+    - No, let's proceed with these preferences
+    - Nope, this is what i want
+    - No, this is what i want
+    - These are fine
+    - Keep them
+    - I'm happy with the preferences
+    - Proceed
+    - Yes, looks good
+    - Go ahead
+- intent: clarify_component
+  examples: |
+    - What is [RAM](component)?
+    - What is an [SSD](storage_type)?
+    - What is a [CPU](component)?
+    - What is a [graphics card](component)?
+    - I keep hearing about [SSD](storage_type), what is it?
+    - What does the [processor](component) actually do?
+    - What's the difference between [SSD](storage_type) and [HDD](storage_type)?
+    - What does [RAM](component) mean?
+    - What does [battery life](component) mean?
+    - What's a [dedicated GPU](component)?
+    - Can you explain what an [SSD](storage_type) is?
+    - What is [flash storage](component)?
+    - Is [SSD](storage_type) really better than [HDD](storage_type)?
+    - How important is [battery life](component)?
+    - What is the purpose of a [CPU](component) in a laptop?
+    - What does the [GPU](component) do?
+    - What is an [operating system](component)?
+    - What is the importance of [RAM](component) in a laptop?
+    - Why is a [graphics card](component) important?
+    - What does [screen resolution](component) mean in a laptop?
+    - What is [screen resolution](component)?
+    - Can you give me so examples of [gpus](component)?
+    - What [GPU](component) do you suggest?
+    - Can you give me some [gpu](component) examples?
+    - What [gpus](component) are there?
+    - What [processor](component) options are there?
+    - What [gpu](component) options are there?
+    - What is a [processor](component)?
+    - What do the different [gpu](component) tiers mean?
+- intent: out_of_scope
+  examples: |
+    - Tell me a joke
+    - What's the weather like?
+    - Who won the football match?
+    - Can you order me a pizza?
+    - asdfghjkl
+    - How old are you?
+    - Sing me a song
+    - What's your favorite color?
+    - Banana phone?
+    - Book me a flight to Paris
+    - What is the capital of France?
+    - Can you help me with my homework?
+    - What time is it?
+    - Who is the president of the United States?
+    - Do you believe in aliens?
+    - What's your favorite movie?
+    - Can you dance?
+    - Tell me about quantum physics
+    - What's your favorite food?
+    - How do I bake a cake?
+    - Can you drive a car?
+    - What is 2+2?
+    - Play some music
+    - Open the door
+    - Call my mom
+    - Remind me to buy milk
+    - Set an alarm for 7am
+    - What's your name?
+    - Who created you?
+    - Are you real?
+    - Do you have any pets?
+    - What is love?
+    - Can you swim?
+    - What is the meaning of life?
+    - Do you like pizza?
+    - Can you speak Spanish?
+    - How tall are you?
+    - What's your favorite sport?
+    - Can you solve this math problem?
+    - What is your favorite book?
+    - Do you have a family?
+    - Can you tell me a story?
+    - What is your favorite animal?
+    - Can you recommend a movie?
+    - What is your favorite song?
+    - Do you have a job?
+    - Can you make me laugh?
+    - What is your favorite color?
+    - Do you like to travel?
+    - Can you help me with my taxes?
+    - What is your favorite holiday?
+    - Can you tell me a secret?
+    - What is your favorite season?
+    - Do you like coffee?
+    - Can you write a poem?
+    - What is your favorite city?
+    - Can you play chess?
+    - What is your favorite TV show?
+    - Do you like dogs or cats?
+    - Can you do my homework?
+    - What is your favorite ice cream flavor?
+    - Can you tell me a fun fact?
+    - What is your favorite hobby?
+    - Can you help me find a job?
+    - What is your favorite fruit?
+    - Can you tell me a riddle?
+    - What is your favorite flower?
+    - Can you help me lose weight?
+    - What is your favorite video game?
+    - Can you tell me a joke about chickens?
+    - What is your favorite planet?
+    - Can you help me learn to code?
+    - What is your favorite dessert?
+    - Can you tell me a joke about computers?
+    - What is your favorite superhero?
+    - Can you help me plan a vacation?
+    - What is your favorite board game?
+    - Can you tell me a joke about robots?
+    - What is your favorite cartoon?
+    - Can you help me write a story?
+    - What is your favorite drink?
+    - Can you tell me a joke about math?
+    - What is your favorite animal sound?
+    - Can you help me with my science project?
+    - What is your favorite pizza topping?
+    - Can you tell me a joke about school?
+    - What is your favorite thing to do?
+    - Can you help me with my art project?
+    - What is your favorite number?
+    - Can you tell me a joke about food?
+    - What is your favorite place to visit?
+    - Can you help me with my English homework?
+    - What is your favorite type of music?
+    - Can you tell me a joke about sports?
+    - What is your favorite way to relax?
+    - Can you help me with my math homework?
+    - What is your favorite type of weather?
+    - Can you tell me a joke about animals?
+    - What is your favorite thing to eat?
+    - Can you help me with my history homework?
+    - What is your favorite thing to watch on TV?
+    - Can you tell me a joke about teachers?
+    - What is your favorite thing to read?
+    - Can you help me with my geography homework?
+    - What is your favorite thing to learn about?
+    - Can you tell me a joke about parents?
+    - What is your favorite thing to draw?
+    - Can you help me with my computer homework?
+    - What is your favorite thing to cook?
+    - Can you tell me a joke about kids?
+    - What is your favorite thing to play?
+    - Can you help me with my French homework?
+    - What is your favorite thing to build?
+    - Can you tell me a joke about friends?
+    - What is your favorite thing to collect?
+    - Can you help me with my German homework?
+    - What is your favorite thing to fix?
+    - Can you tell me a joke about family?
+    - What is your favorite thing to invent?
+    - Can you help me with my Spanish homework?
+    - What is your favorite thing to imagine?
+    - Can you tell me a joke about grandparents?
+    - What is your favorite thing to discover?
+    - Can you help me with my Italian homework?
+    - What is your favorite thing to explore?
+    - Can you tell me a joke about neighbors?
+    - What is your favorite thing to remember?
+    - Can you help me with my Chinese homework?
+    - What is your favorite thing to forget?
+    - Can you tell me a joke about strangers?
+    - What is your favorite thing to share?
+    - Can you help me with my Russian homework?
+    - What is your favorite thing to borrow?
+    - Can you tell me a joke about teachers?
+    - What is your favorite thing to lend?
+    - Can you help me with my Japanese homework?
+    - What is your favorite thing to trade?
+    - Can you tell me a joke about students?
+    - What is your favorite thing to win?
+    - Can you help me with my Korean homework?
+    - What is your favorite thing to lose?
+    - Can you tell me a joke about principals?
+    - What is your favorite thing to find?
+    - Can you help me with my Arabic homework?
+    - What is your favorite thing to hide?
+    - Can you tell me a joke about janitors?
+    - What is your favorite thing to seek?
+    - Can you help me with my Portuguese homework?
+    - What is your favorite thing to chase?
+    - Can you tell me a joke about lunch ladies?
+    - What is your favorite thing to catch?
+    - Can you help me with my Turkish homework?
+    - What is your favorite thing to throw?
+    - Can you tell me a joke about cafeteria food?
+    - What is your favorite thing to kick?
+    - Can you help me with my Greek homework?
+    - What is your favorite thing to run?
+    - Can you tell me a joke about school buses?
+    - What is your favorite thing to jump?
+    - Can you help me with my Hebrew homework?
+    - What is your favorite thing to climb?
+    - Can you tell me a joke about playgrounds?
+    - What is your favorite thing to swing?
+    - Can you help me with my Hindi homework?
+    - What is your favorite thing to slide?
+    - Can you tell me a joke about recess?
+    - What is your favorite thing to spin?
+    - Can you help me with my Bengali homework?
+    - What is your favorite thing to roll?
+    - Can you tell me a joke about field trips?
+    - What is your favorite thing to skip?
+    - Can you help me with my Urdu homework?
+    - What is your favorite thing to hop?
+    - Can you tell me a joke about teachers' pets?
+    - What is your favorite thing to balance?
+    - Can you help me with my Persian homework?
+    - What is your favorite thing to stretch?
+    - Can you tell me a joke about homework?
+    - What is your favorite thing to bend?
+    - Can you help me with my Thai homework?
+    - What is your favorite thing to twist?
+    - Can you tell me a joke about tests?
+    - What is your favorite thing to fold?
+    - Can you help me with my Vietnamese homework?
+    - What is your favorite thing to crease?
+    - Can you tell me a joke about grades?
+    - What is your favorite thing to crumple?
+    - Can you help me with my Malay homework?
+    - What is your favorite thing to tear?
+    - Can you tell me a joke about report cards?
+    - What is your favorite thing to cut?
+    - Can you help me with my Filipino homework?
+    - What is your favorite thing to glue?
+    - Can you tell me a joke about school supplies?
+    - What is your favorite thing to tape?
+    - Can you help me with my Indonesian homework?
+    - What is your favorite thing to staple?
+    - Can you tell me a joke about pencils?
+    - What is your favorite thing to erase?
+    - Can you help me with my Swahili homework?
+    - What is your favorite thing to sharpen?
+    - Can you tell me a joke about erasers?
+    - What is your favorite thing to color?
+    - Can you help me with my Zulu homework?
+    - What is your favorite thing to paint?
+    - Can you tell me a joke about crayons?
+    - What is your favorite thing to draw with?
+    - Can you help me with my Xhosa homework?
+    - What is your favorite thing to write with?
+    - Can you tell me a joke about markers?
+    - What is your favorite thing to read with?
+    - Can you help me with my Afrikaans homework?
+    - What is your favorite thing to listen with?
+    - Can you tell me a joke about glue sticks?
+    - What is your favorite thing to watch with?
+    - Can you help me with my Yoruba homework?
+    - What is your favorite thing to play with?
+    - Can you tell me a joke about scissors?
+    - What is your favorite thing to build with?
+    - Can you help me with my Igbo homework?
+    - What is your favorite thing to fix with?
+    - Can you tell me a joke about rulers?
+    - What is your favorite thing to invent with?
+    - Can you help me with my Hausa homework?
+    - What is your favorite thing to imagine with?
+    - Can you tell me a joke about protractors?
+    - What is your favorite thing to discover with?
+    - Can you help me with my Amharic homework?
+    - What is your favorite thing to explore with?
+    - Can you tell me a joke about compasses?
+    - What is your favorite thing to remember with?
+    - Can you help me with my Somali homework?
+    - What is your favorite thing to forget with?
+    - Can you tell me a joke about calculators?
+    - What is your favorite thing to share with?
+    - Can you help me with my Shona homework?
+    - What is your favorite thing to borrow with?
+    - Can you tell me a joke about paper clips?
+    - What is your favorite thing to lend with?
+    - Can you help me with my Kinyarwanda homework?
+    - What is your favorite thing to trade with?
+    - Can you tell me a joke about binders?
+    - What is your favorite thing to win with?
+    - Can you help me with my Kirundi homework?
+    - What is your favorite thing to lose with?
+    - Can you tell me a joke about folders?
+    - What is your favorite thing to find with?
+    - Can you help me with my Tigrinya homework?
+    - What is your favorite thing to hide with?
+    - Can you tell me a joke about notebooks?
+    - What is your favorite thing to seek with?
+    - Can you help me with my Oromo homework?
+    - What is your favorite thing to chase with?
+    - Can you tell me a joke about whiteboards?
+    - What is your favorite thing to catch with?
+    - Can you help me with my Chichewa homework?
+    - What is your favorite thing to throw with?
+    - Can you tell me a joke about chalk?
+    - What is your favorite thing to kick with?
+    - Can you help me with my Chewa homework?
+    - What is your favorite thing to run with?
+    - Can you tell me a joke about desks?
+    - What is your favorite thing to jump with?
+    - Can you help me with my Tswana homework?
+    - What is your favorite thing to climb with?
+    - Can you tell me a joke about chairs?
+    - What is your favorite thing to swing with?
+    - Can you help me with my Sotho homework?
+    - What is your favorite thing to slide with?
+    - Can you tell me a joke about tables?
+    - What is your favorite thing to spin with?
+    - Can you help me with my Venda homework?
+    - What is your favorite thing to roll with?
+    - Can you tell me a joke about floors?
+    - What is your favorite thing to skip with?
+    - Can you help me with my Tsonga homework?
+    - What is your favorite thing to hop with?
+    - Can you tell me a joke about ceilings?
+    - What is your favorite thing to balance with?
+    - Can you help me with my Pedi homework?
+    - What is your favorite thing to stretch with?
+    - Can you tell me a joke about walls?
+    - What is your favorite thing to bend with?
+    - Can you help me with my Ndebele homework?
+    - What is your favorite thing to twist with?
+    - Can you tell me a joke about windows?
+    - What is your favorite thing to fold with?
+    - Can you help me with my Zulu homework?
+    - What is your favorite thing to crease with?
+    - Can you tell me a joke about doors?
+    - What is your favorite thing to crumple with?
+    - Can you help me with my Xhosa homework?
+    - What is your favorite thing to tear with?
+    - Can you tell me a joke about stairs?
+    - What is your favorite thing to cut with?
+    - Can you help me with my Afrikaans homework?
+    - What is your favorite thing to glue with?
+    - Can you tell me a joke about elevators?
+    - What is your favorite thing to tape with?
+    - Can you help me with my Yoruba homework?
+    - What is your favorite thing to staple with?
+    - Can you tell me a joke about toilets?
+    - What is your favorite thing to erase with?
+    - Can you help me with my Kinyarwanda homework?
+    - What is your favorite thing to sharpen with?
+    - Can you tell me a joke about showers?
+    - What is your favorite thing to color with?
+    - Can you help me with my Kirundi homework?
+    - What is your favorite thing to paint with?
+    - Can you tell me a joke about bathtubs?
+    - What is your favorite thing to draw with?
+    - Can you help me with my Tigrinya homework?
+    - What is your favorite thing to write with?
+    - Can you tell me a joke about towels?
+    - What is your favorite thing to read with?
+    - Can you help me with my Oromo homework?
+    - What is your favorite thing to listen with?
+    - Can you tell me a joke about soap?
+    - What is your favorite thing to watch with?
+    - Can you help me with my Chichewa homework?
+    - What is your favorite thing to play with?
+    - Can you tell me a joke about sponges?
+    - What is your favorite thing to build with?
+    - Can you help me with my Chewa homework?
+    - What is your favorite thing to fix with?
+    - Can you tell me a joke about mops?
+    - What is your favorite thing to invent with?
+    - Can you help me with my Tswana homework?
+    - What is your favorite thing to imagine with?
+    - Can you tell me a joke about brooms?
+    - What is your favorite thing to discover with?
+    - Can you help me with my Sotho homework?
+    - What is your favorite thing to explore with?
+    - Can you tell me a joke about dustpans?
+    - What is your favorite thing to remember with?
+    - Can you help me with my Venda homework?
+    - What is your favorite thing to forget with?
+    - Can you tell me a joke about buckets?
+    - What is your favorite thing to share with?
+    - Can you help me with my Tsonga homework?
+    - What is your favorite thing to borrow with?
+    - Can you tell me a joke about rags?
+    - What is your favorite thing to lend with?
+    - Can you help me with my Pedi homework?
+    - What is your favorite thing to trade with?
+    - Can you tell me a joke about sponges?
+    - What is your favorite thing to win with?
+    - Can you help me with my Ndebele homework?
+    - What is your favorite thing to lose with?
+    - Can you tell me a joke about soap dispensers?
+    - What is your favorite thing to find with?
+    - Can you help me with my Zulu homework?
+    - What is your favorite thing to hide with?
+    - Can you tell me a joke about hand dryers?
+    - What is your favorite thing to seek with?
+    - Can you help me with my Xhosa homework?
+    - What is your favorite thing to chase with?
+    - Can you tell me a joke about paper towels?
+    - What is your favorite thing to catch with?
+    - Can you help me with my Afrikaans homework?
+    - What is your favorite thing to throw with?
+    - Can you tell me a joke about napkins?
+    - What is your favorite thing to kick with?
+    - Can you help me with my Yoruba homework?
+    - What is your favorite thing to run with?
+    - Can you tell me a joke about tissues?
+    - What is your favorite thing to jump with?
+    - Can you help me with my Igbo homework?
+    - What is your favorite thing to climb with?
+    - Can you tell me a joke about wipes?
+    - What is your favorite thing to swing with?
+    - Can you help me with my Hausa homework?
+    - What is your favorite thing to slide with?
+    - Can you tell me a joke about cleaning supplies?
+    - What is your favorite thing to spin with?
+    - Can you help me with my Amharic homework?
+    - What is your favorite thing to roll with?
+    - Can you tell me a joke about disinfectant?
+    - What is your favorite thing to skip with?
+    - Can you help me with my Somali homework?
+    - What is your favorite thing to hop with?
+    - Can you tell me a joke about sanitizer?
+- intent: nlu_fallback
+  examples: |
+    - qwertyuiop
+    - asdfghjkl
+    - lkjhgfdsa
+    - zxcvbnm
+    - random text that makes no sense
+    - 1234567890
+    - !@#$%^&*()
+    - gibberish input
+    - blah blah blah
+    - ???
+- intent: ask_bot_purpose
+  examples: |
+    - How could you assist me?
+    - What can you do for me?
+    - How can you help me today?
+    - What are you capable of?
+    - What is your purpose?
+    - Tell me what you can do.
+    - What's your job?
+    - What is this chatbot for?
+    - Can you tell me about your features?
+    - How do I use this chatbot?
+    - what can i ask you?
+    - how can u help me?
+- intent: satisfied
+  examples: | 
+    - I am satisfied with this recommedation
+    - I am satisfied with the recommedation you provided me 
+    - I like the laptop you suggested 
+    - Yes, i am satisfied with the laptop suggestions
+    - Yes, i like the laptop suggestions
+    - These laptops look good
+    - These recommendations are perfect
+    - I'm happy with these suggestions
+    - These laptops meet my requirements
+    - I like what you've suggested
+    - These are exactly what I was looking for
+    - Perfect, these laptops are great
+    - Yes, these recommendations are good
+    - I'm satisfied with these options
+    - These laptops seem suitable
+    - I'm happy with these choices
+    - These suggestions are exactly what I need
+    - I like these laptop options
+    - These recommendations are spot on
+    - I'm pleased with these suggestions
+    - These laptops match my needs
+    - I'm content with these recommendations
+    - These are good options
+    - I'm satisfied with the laptops you suggested
+    - These recommendations are excellent
+- intent: not_satisfied
+  examples: | 
+    - No, this is not the type of laptop i am looking for
+    - No, i do not like these laptop suggestions
+    - No, I am not satisfied with the recommendations
+    - These laptops don't meet my requirements
+    - I'm not happy with these suggestions
+    - These recommendations aren't what I'm looking for
+    - I don't like any of these options
+    - None of these laptops are suitable
+    - These suggestions don't match my needs
+    - I'm not satisfied with these laptops
+    - These recommendations are not good enough
+    - I don't want any of these laptops
+    - These options don't work for me
+    - I'm not pleased with these suggestions
+    - These laptops don't fit my criteria
+    - I'm not content with these recommendations
+    - These suggestions are not what I expected
+    - I don't like these laptop options
+    - These recommendations are not suitable
+    - I'm not happy with these choices
+    - These laptops don't match what I need
+    - I'm not satisfied with any of these options
+    - These suggestions are not what I want
+    - I don't like any of these recommendations
+    - These laptops are not what I'm looking for
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - see you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - Goodbye
+- intent: restart
+  examples: |
+    - Let's restart
+    - Let's start over
+    - I want a new product recommendation
+    - I want you to recommend me another product
+    - I want another product recommendation
+    - I want something that better fits my needs
+    - Forget what I said earlier
+    - Ignore my previous choices
+    - Can we start from scratch?
+    - Reset my preferences
+    - Clear everything and start again
+    - I changed my mind, let's begin again
+    - I want to choose different specs
+    - Recommend something different
+    - Let's redo this
+    - Start fresh
+    - Give me new options
+    - Let's go back to the beginning
+    - I want to update my requirements
+    - I made a mistake, let's restart
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- synonym: SSD
+  examples: |
+    - ssd
+- synonym: 2TB
+  examples: |
+    - 2tb
+- synonym: 32GB
+  examples: |
+    - 32gb
+- synonym: Acer
+  examples: |
+    - acer
+- synonym: 1920x1080
+  examples: |
+    - normal resolution
+    - Full HD
+    - FHD
+    - 1080p
+- synonym: resolution
+  examples: |
+    - pixel density
+    - pixel count
+    - pixel resolution
+- synonym: battery life
+  examples: |
+    - battery duration
+    - battery performance
+    - battery life
+    - run time
+    - long battery life
+    - extended battery life
+    - battery capacity
+    - battery time
+    - long battery
+    - hours of battery life
+    - all-day battery
+- synonym: weight
+  examples: |
+    - heaviness
+    - carrying weight
+    - weight of the laptop
+- synonym: budget
+  examples: |
+    - price range
+- synonym: screen size
+  examples: |
+    - display
+    - display size
+    - monitor size
+    - screen size
+- synonym: processor
+  examples: |
+    - CPU
+    - chip
+    - computing unit
+    - computing core
+    - central processor
+    - cpus
+    - CPUs
+    - CPUS
+- synonym: gpu
+  examples: |
+    - graphics chip
+    - graphics processor
+    - graphic processing unit 
+    - graphics processing unit 
+    - graphics card
+    - video unit
+    - video card
+    - GPU
+    - gpus
+    - GPUs
+    - GPUS
+- synonym: storage
+  examples: |
+    - hard drive
+    - drive capacity
+    - storage capacity
+    - disk space
+    - storage space
+    - internal storage
+- synonym: hybrid drive
+  examples: |
+    - hybrid storage
+    - hybrid SSD+HDD
+    - SSHD
+    - solid-state hybrid drive
+    - dual storage
+    - fusion drive
+- synonym: ram
+  examples: |
+    - system memory
+    - random access memory
+    - computer memory
+- synonym: tablet
+  examples: |
+    - convertible
+    - 2-in-1
+    - detachable
+- regex: battery_life
+  examples: |
+    - [0-9]+\s?(hours|hrs|h)
+- regex: budget
+  examples: |
+    - (?i)\s*\$?\s*(\d{2,5})|(\d{2,5})\s*(usd|dollars)?
+- regex: gpu
+  examples: |
+    - (NVIDIA|AMD|Intel)\s?(RTX|GTX|Iris Xe|Radeon)?\s?[0-9]*
+- regex: os
+  examples: |
+    - (?:(?:Windows\s?\d*|macOS|ChromeOS))
+- regex: processor
+  examples: |
+    - \b(Intel Core i[3-9]|AMD Ryzen [3-9]|Apple M[1-9])\b
+- regex: ram
+  examples: |
+    - \b(2|4|6|8|12|16|24|32|64)\s?(GB|gigabytes|gigs|gb)\b
+- regex: screen_size
+  examples: |
+    - \b[0-9]{1,2}(\.[0-9]{1,2})?(-inch|\"| in | Inches| inches| inch)\b
+- regex: storage_size
+  examples: |
+    - \b(128|256|512|1024|2048)\s?(GB|gb)\b|\b(1|2)\s?(TB|tb)\b
+- regex: resolution
+  examples: |
+    - \b(2K\+?|3K|4K|HD\+?|Full HD|Other)\b
+- lookup: resolution
+  examples: |
+    - HD display
+    - Ultra HD
+    - 4K Ultra HD
+    - 4k display
+    - Full HD
+    - 1080p
+    - 4K resolution
+- lookup: weight
+  examples: |
+    - lightweight
+    - heavy
+    - light laptop
+    - heavy laptop
+    - portable
+    - compact
+    - bulky
+- lookup: storage_type
+  examples: |
+    - SSD
+    - HDD
+    - Hybrid Drive
+    - SATA
+    - Embedded MultiMediaCard
+    - Flash Storage
+    - Hybrid
+    - SSD + HDD
+    - eMMC
+    - SSD and HDD
+    - HDD and SSD
+- lookup: brand_name
+  examples: |
+    - Dell
+    - HP
+    - Lenovo
+    - ASUS
+    - Acer
+    - MSI
+    - Razer
+    - Apple
+    - Microsoft
+    - Gigabyte
+    - Samsung
+    - Huawei
+    - LG
+    - Alienware
+- lookup: gpu
+  examples: |
+    - NVIDIA GeForce GTX 1650
+    - NVIDIA GeForce GTX 1050
+    - NVIDIA GeForce RTX 3050
+    - NVIDIA GeForce RTX 3060
+    - NVIDIA GeForce RTX 3070
+    - NVIDIA GeForce GTX 960
+    - NVIDIA GeForce GTX 1060
+    - NVIDIA GeForce RTX 2060
+    - NVIDIA GeForce GTX 1660
+    - NVIDIA GeForce RTX 2070
+    - NVIDIA GeForce RTX 3080
+    - NVIDIA GeForce GTX 950
+    - NVIDIA GeForce GTX 1070
+    - NVIDIA GeForce GTX 970
+    - NVIDIA GeForce RTX 2080
+    - NVIDIA GeForce GTX 980
+    - NVIDIA GeForce GTX 1080
+    - NVIDIA GeForce GTX 965
+    - NVIDIA GeForce GTX 860
+    - NVIDIA GeForce RTX 4070
+    - NVIDIA GeForce RTX 4060
+    - NVIDIA GeForce GTX 850
+    - NVIDIA GeForce RTX 4090
+    - NVIDIA GeForce RTX 4050
+    - NVIDIA GeForce RTX 2050
+    - NVIDIA GeForce GTX 660
+    - NVIDIA GeForce MX150
+    - NVIDIA GeForce MX250
+    - NVIDIA GeForce MX330
+    - NVIDIA GeForce MX350
+    - NVIDIA GeForce MX450
+    - NVIDIA GeForce MX550
+    - NVIDIA GeForce RTX 3090
+    - NVIDIA GeForce RTX 4080
+    - NVIDIA GeForce GTX 1650Ti
+    - NVIDIA T1200
+    - NVIDIA GeForce GTX 560
+    - NVIDIA GeForce RTX 5000
+    - NVIDIA GeForce RTX 4000
+    - NVIDIA GeForce RTX 3000
+    - NVIDIA Quadro M1000M
+    - NVIDIA Quadro M1200M
+    - NVIDIA Quadro M2000M
+    - NVIDIA Quadro M2200M
+    - NVIDIA Quadro P1000
+    - NVIDIA Quadro P2000
+    - NVIDIA Quadro P3000
+    - NVIDIA Quadro P3200
+    - NVIDIA Quadro P5200
+    - NVIDIA Quadro T1000
+    - NVIDIA Quadro T2000
+    - NVIDIA Quadro T500
+    - NVIDIA Quadro RTX A1000
+    - NVIDIA Quadro RTX A2000
+    - NVIDIA Quadro RTX A3000
+    - NVIDIA Quadro RTX A4000
+    - Intel UHD Graphics
+    - Intel HD Graphics 3000
+    - Intel HD Graphics 4600
+    - Intel HD Graphics 520
+    - Intel HD Graphics 530
+    - Intel HD Graphics 5500
+    - Intel HD Graphics 620
+    - Intel HD Graphics 630
+    - Intel Iris Xe Graphics
+    - AMD Radeon R5
+    - AMD Radeon RX 6600M
+    - AMD Radeon RX 6700M
+    - AMD Radeon RX 6800M
+    - AMD Radeon RX 7600M
+    - AMD Radeon RX 7700M
+    - AMD Radeon RX 7800M
+    - AMD Radeon RX 7900M
+    - no gpu
+    - entry level
+    - entry-level
+    - mid range
+    - mid-range
+    - high end
+    - high-end
+    - integrated graphics
+    - integrated gpu
+- lookup: laptop_type
+  examples: |
+    - student
+    - university
+    - work
+    - everyday use
+    - gaming
+    - games
+    - business
+    - photo editing
+    - video editing
+    - animation
+    - students
+    - working
+    - office
+    - programming
+    - coding
+    - game development 
+    - development
+    - developer
+- lookup: ram
+  examples: |
+    - 2GB
+    - 4GB
+    - 6GB
+    - 8GB
+    - 12GB
+    - 16GB
+    - 24GB
+    - 32GB
+    - 64GB
+    - 80GB
+    - 96GB
+    - 128GB

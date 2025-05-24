@@ -1,0 +1,91 @@
+version: "3.1"
+
+#the rules.yml file contains static rules for predictable intercations like greetings and fallback responses
+
+rules:
+
+  - rule: say hello anytime the user says hello
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - rule: say goodbye anytime the user says goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: say 'I am a bot' anytime the user challenges
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
+
+  - rule: say bot's purpose anytime the user asks 
+    steps:
+      - intent: ask_bot_purpose
+      - action: utter_bot_purpose
+
+  - rule: handle out of scope queries
+    steps: 
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+
+  - rule: handle fallback
+    steps:
+      - intent: nlu_fallback
+      - action: utter_out_of_scope
+
+  - rule: respond to user's thank you
+    steps: 
+      - intent: thank
+      - action: utter_welcome
+
+  - rule: start laptop specs form if user asks for a laptop recommendation
+    steps:
+      - intent: ask_recommendation
+      - action: laptop_specs_form
+      - active_loop: laptop_specs_form
+
+  - rule: validate the specification(s) that the user provided pre form and trigger form
+    steps:
+      - intent: provide_information
+      - action: action_pre_form_validation
+      - action: laptop_specs_form
+      - active_loop: laptop_specs_form
+
+  - rule: provide the user with a preference summary
+    condition:
+      - active_loop: laptop_specs_form
+    steps:
+      - action: laptop_specs_form
+      - active_loop: null
+      - action: action_summarize
+
+  - rule: adjust the user's preference 
+    steps:
+    - intent: change_preference
+    - action: action_adjust_preference
+    - action: action_summarize
+
+  - rule: user asks about laptop components
+    steps:
+      - intent: clarify_component
+      - action: action_explain_component  
+      - action: laptop_specs_form
+      - active_loop: laptop_specs_form
+
+  - rule: user specifies no preference
+    steps:
+    - intent: specify_no_preference
+    - action: action_no_preference
+    - action: laptop_specs_form
+    - active_loop: laptop_specs_form
+
+  - rule: trigger the scores UI in frontend
+    steps:
+      - intent: keep_preferences
+      - action: action_trigger_scores
+
+  - rule: recommend the top 3 laptops 
+    steps:
+    - intent: submit_priorities
+    - action: action_provide_recommendation

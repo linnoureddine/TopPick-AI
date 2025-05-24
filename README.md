@@ -41,8 +41,8 @@ TopPick AI is an AI-powered decision-making tool designed to assist users in sel
 | Feature Extraction  | T5-based `ate_tk-instruct-base-def-pos-laptops`           |
 | Sentiment Analysis  | `yangheng/deberta-v3-base-absa-v1.1` (via PyABSA)         |
 | Ranking Algorithm   | Modified TOPSIS with Confidence Factor                    |
-| Frontend            | HTML/CSS/JS + Flask for integration                       |
-| Backend             | Python                                                    |
+| Frontend            | HTML/CSS/JS + SocketIO for integration                    |
+| Backend             | Rasa Chatbot                                              |
 | Dataset             | [Amazon Laptop Reviews (enriched)](https://huggingface.co/datasets/naga-jay/amazon-laptop-reviews-enriched) |
 | NLP Libraries       | HuggingFace Transformers, PyTorch, spaCy                  |
 

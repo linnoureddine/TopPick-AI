@@ -85,43 +85,6 @@ User ➔ Rasa Chatbot ➔ User Specs Parser (Bitmask Filter) ➔
 
 ---
 
-## 💻 Installation
-
-```bash
-# Clone the repo
-git clone https://github.com/your-username/TopPickAI.git
-cd TopPickAI
-
-# Create a virtual environment
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run Rasa chatbot
-cd chatbot
-rasa train
-rasa run
-
-# In another terminal
-rasa run actions
-
-# Run the web app
-cd ..
-python app.py
-```
-
----
-
-## 🚀 Usage
-
-1. Launch the chatbot and frontend.
-2. Input your preferred laptop specs and prioritized features.
-3. Get tailored laptop suggestions with explanations for each ranking.
-
----
-
 ## 📊 Evaluation
 
 - **Accuracy**:

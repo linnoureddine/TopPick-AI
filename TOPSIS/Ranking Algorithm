@@ -1,0 +1,392 @@
+import pandas as pd
+import numpy as np
+import time
+import re
+import warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+
+start = time.time()
+
+df = pd.read_csv("/content/bitmasked_laptops_with_updated_storage_config(1).csv", encoding="ISO-8859-1", dtype={"RAM Bucket": str})
+sentiment_df = pd.read_csv("/content/All_laptops_with_avg_sentiment (1).csv", encoding="ISO-8859-1")
+
+def normalize_os(text):
+    if not text: return None
+    text = text.lower().replace(" ", "")
+    if "windows11" in text: return "Windows 11"
+    elif "windows10" in text: return "Windows 10"
+    elif "windows8" in text: return "Windows 8"
+    elif "windows7" in text: return "Windows 7"
+    elif text == "windows": return "windows_family"
+    elif "chrome" in text: return "Chrome OS"
+    elif "mac" in text: return "macOS"
+    return text.title()
+
+def extract_float(text):
+    try: return float(re.search(r"\d+(\.\d+)?", str(text)).group())
+    except: return None
+
+def parse_ram(text):
+    try: return int(re.search(r"\d+", str(text)).group())
+    except: return None
+
+def parse_price(text):
+    try: return int(re.search(r"\d+", str(text).replace(",", "")).group())
+    except: return None
+
+def map_screen_size_to_bucket(size):
+    if size < 13:
+        return "<13"
+    elif size < 15:
+        return "13-15"
+    elif size <= 17:
+        return "15-17"
+    else:
+        return ">17"
+
+def apply_screen_size_filter(df, size_str):
+    size = extract_float(size_str)
+    if size:
+        bucket = map_screen_size_to_bucket(size)
+        return df[df["screen_size_bucket"] == bucket]
+    return df
+
+def parse_storage_size(size_str):
+    """Convert size like '512GB' or '1TB' to float in GB."""
+    match = re.search(r'(\d+(\.\d+)?)(tb|gb)', size_str.lower().replace(" ", ""))
+    if match:
+        size = float(match.group(1))
+        unit = match.group(3)
+        return size * 1024 if unit == "tb" else size
+    return None
+
+def apply_storage_filter(df, storage_type=None, storage_list=None):
+    if not storage_list or all(not s for s in storage_list):
+        return df  
+
+    df = df.copy()
+
+    parsed_storages = []
+    for item in storage_list:
+        if not item:
+            continue
+
+        if "+" in str(item):
+            parts = item.split("+")
+            for part in parts:
+                size = parse_storage_size(part.strip())
+                if size is not None:
+                    parsed_storages.append(size)
+        else:
+            size = parse_storage_size(str(item))
+            if size is not None:
+                parsed_storages.append(size)
+
+    if not parsed_storages:
+        return df  
+
+    df["ssd_size_gb"] = df["ssd_size_gb"].fillna(0)
+    df["hdd_size_gb"] = df["hdd_size_gb"].fillna(0)
+    df["total_storage"] = df["ssd_size_gb"] + df["hdd_size_gb"]
+
+    storage_type = (storage_type or "").lower().strip()
+
+    if storage_type == "ssd" or storage_type == "ssd only":
+        if len(parsed_storages) == 1:
+            return df[(df["ssd_size_gb"] >= parsed_storages[0]) & (df["hdd_size_gb"] == 0)]
+        elif len(parsed_storages) > 1:
+            total_required = sum(parsed_storages)
+            return df[(df["ssd_size_gb"] >= total_required) & (df["hdd_size_gb"] == 0)]
+
+    elif storage_type == "hdd" or storage_type == "hdd only":
+        if len(parsed_storages) == 1:
+            return df[(df["hdd_size_gb"] >= parsed_storages[0]) & (df["ssd_size_gb"] == 0)]
+        elif len(parsed_storages) > 1:
+            total_required = sum(parsed_storages)
+            return df[(df["hdd_size_gb"] >= total_required) & (df["ssd_size_gb"] == 0)]
+
+    elif storage_type == "dual":
+        if len(parsed_storages) == 2:
+            s1, s2 = parsed_storages
+            return df[
+                ((df["ssd_size_gb"] >= s1) & (df["hdd_size_gb"] >= s2) & (df["ssd_size_gb"] > 0) & (df["hdd_size_gb"] > 0)) |
+                ((df["ssd_size_gb"] >= s2) & (df["hdd_size_gb"] >= s1) & (df["ssd_size_gb"] > 0) & (df["hdd_size_gb"] > 0))
+            ]
+        elif len(parsed_storages) == 1:
+            s = parsed_storages[0]
+            return df[(df["ssd_size_gb"] >= s) & (df["hdd_size_gb"] >= s)]
+
+    elif storage_type == "dual ssd":
+        total_required = sum(parsed_storages)
+        return df[(df["ssd_size_gb"] >= total_required) & (df["hdd_size_gb"] == 0)]
+
+    elif storage_type == "dual hdd":
+        total_required = sum(parsed_storages)
+        return df[(df["hdd_size_gb"] >= total_required) & (df["ssd_size_gb"] == 0)]
+
+    elif storage_type == "ssd+hdd" or storage_type == "hdd+ssd":
+        if len(parsed_storages) == 2:
+            if storage_type == "ssd+hdd":
+                ssd_size, hdd_size = parsed_storages
+            else:
+                hdd_size, ssd_size = parsed_storages
+            return df[(df["ssd_size_gb"] >= ssd_size) & (df["hdd_size_gb"] >= hdd_size)]
+        elif len(parsed_storages) == 1:
+            s = parsed_storages[0] / 2
+            return df[(df["ssd_size_gb"] >= s) & (df["hdd_size_gb"] >= s)]
+
+    total_required = max(parsed_storages) if len(parsed_storages) == 1 else sum(parsed_storages)
+
+    return df[
+        (df["total_storage"] >= total_required) |
+        (df["ssd_size_gb"] >= total_required) |
+        (df["hdd_size_gb"] >= total_required)
+    ]
+
+def parse_storage_size(size_str):
+    if not isinstance(size_str, str):
+        return None
+
+    normalized = size_str.lower().replace(" ", "")
+
+    match = re.search(r'(\d+(?:\.\d+)?)\s*(tb|gb|mb)', normalized)
+    if match:
+        size = float(match.group(1))
+        unit = match.group(2)
+
+        if unit == "tb":
+            return size * 1024
+        elif unit == "gb":
+            return size
+        elif unit == "mb":
+            return size / 1024
+
+    match = re.search(r'(\d+(?:\.\d+)?)', normalized)
+    if match:
+        size = float(match.group(1))
+        if size < 10000:
+            return size
+
+    return None
+
+gpu_tier_order = {
+    "No GPU": 1, "Integrated GPU": 2, "Entry-Level GPU": 3,
+    "Mid-Range GPU": 4, "High-End GPU": 5
+}
+screen_res_order = {"Low Res": 1, "Medium Res": 2, "High Res": 3}
+
+filter_order = [
+    "brand", "laptop_type", "cpu", "gpu", "screen_size", "resolution",
+    "budget", "ram", "storage_type", "storage", "os"
+]
+
+relaxation_priority = [
+    "brand", "os", "storage_type", "storage",
+    "resolution", "screen_size", "ram", "gpu"
+]
+
+def filter_laptops(user_input, df):
+    relaxed = set()
+    for i in range(len(relaxation_priority) + 1):
+        current_df = df.copy()
+        relaxed_so_far = set()
+
+        for key in filter_order:
+            if key in relaxed or key in relaxed_so_far or user_input.get(key) in [None, "neutral"]:
+                continue
+
+            value = user_input.get(key)
+
+            if key == "brand":
+                current_df = current_df[current_df["brand"].str.lower() == value.lower()]
+            elif key == "laptop_type":
+                current_df = current_df[current_df["Laptop Type"].str.lower() == value.lower()]
+            elif key == "cpu":
+                current_df = current_df[current_df["CPU"].str.lower().str.contains(value.lower())]
+            elif key == "gpu":
+                mapping = {
+                    "no gpu": "No GPU", "integrated": "Integrated GPU",
+                    "entry level": "Entry-Level GPU", "mid range": "Mid-Range GPU",
+                    "high end": "High-End GPU"
+                }
+                tier = mapping.get(value.lower().replace("-", " "), None)
+                if tier:
+                    current_df = current_df[current_df["GPU Tier"] == tier]
+            elif key == "screen_size":
+                current_df = apply_screen_size_filter(current_df, value)
+            elif key == "resolution":
+                val = screen_res_order.get(value)
+                if val:
+                    current_df = current_df[current_df["Screen Resolution Bucket"].map(screen_res_order.get) <= val]
+            elif key == "budget":
+                amount = parse_price(value)
+                if amount:
+                    current_df = current_df[current_df["price"] <= amount]
+            elif key == "ram":
+                ram_val = parse_ram(value)
+                if ram_val:
+                    current_df["RAM (GB)"] = pd.to_numeric(current_df["RAM"].str.extract(r"(\d+)")[0], errors='coerce')
+                    current_df = current_df[current_df["RAM (GB)"] >= ram_val]
+            elif key in ["storage", "storage_type"]:
+                current_df = apply_storage_filter(current_df, user_input.get("storage_type"), user_input.get("storage"))
+            elif key == "os":
+                norm_os = normalize_os(value)
+                if norm_os == "windows_family":
+                    current_df = current_df[current_df["Normalized OS"].str.lower().str.contains("windows")]
+                else:
+                    current_df = current_df[current_df["Normalized OS"].str.lower() == norm_os.lower()]
+
+            print(f"After {key}: {len(current_df)}")
+            if current_df.empty and key in relaxation_priority[i:]:
+                relaxed_so_far.add(key)
+                print(f"Relaxing: {key}")
+                break
+
+        relaxed.update(relaxed_so_far)
+
+        if not current_df.empty:
+            relaxed.update(relaxed_so_far)
+            print(f"\nThe matches found are: {len(current_df)}")
+            print(f"The relaxed filters are: {list(relaxed)}")
+            return current_df.reset_index(drop=True), list(relaxed)
+
+    print("No laptops matched your preferences.")
+    return pd.DataFrame(), list(relaxed)
+
+def rank_with_topsis(df_filtered, user_priorities, reviews_dataset):
+    merged = pd.merge(df_filtered, sentiment_df, on="id", how="inner")
+    if merged.empty:
+        print("⚠ Matched specs but no sentiment scores.")
+        return pd.DataFrame()
+    merged = pd.merge(merged, reviews_dataset[['id', 'num_reviews', 'avg_helpful_votes', 'average_rating', 'rating_number']],
+                     on="id", how="left")
+
+    merged['num_reviews'] = merged['num_reviews'].fillna(1)
+    merged['avg_helpful_votes'] = merged['avg_helpful_votes'].fillna(0)
+    merged['average_rating'] = merged['average_rating'].fillna(3) 
+    merged['rating_number'] = merged['rating_number'].fillna(1)
+
+    all_features = [
+        "Performance", "Build quality", "Battery life", "Display",
+        "Gaming", "Graphics", "Sound", "Fans", "Cooling system", "Weight", "Price"
+    ]
+
+    weights_dict = {feat: user_priorities.get(feat, 0) for feat in all_features}
+    active_features = [f for f in all_features if weights_dict[f] > 0]
+
+    if not active_features:
+        print("⚠ No valid user priorities to rank with.")
+        return merged
+
+    print(f"\n🔍 Using these criteria for ranking: {active_features}")
+    print(f"   With confidence adjustment based on review quantity and quality")
+
+    X_adjusted = np.zeros((len(merged), len(active_features)))
+
+    def calculate_confidence_factor(row, weights=(0.5, 0.2, 0.3)):
+        w_review, w_helpful, w_rating = weights
+
+        review_factor = np.log1p(row['num_reviews']) / np.log1p(100)
+        review_factor = min(review_factor, 1.0)
+
+        helpful_factor = min(row['avg_helpful_votes'] / 5.0, 1.0)
+
+        rating_factor = np.log1p(row['rating_number']) / np.log1p(100)
+        rating_factor = min(rating_factor, 1.0)
+
+        return w_review * review_factor + w_helpful * helpful_factor + w_rating * rating_factor
+
+    merged['confidence_factor'] = merged.apply(calculate_confidence_factor, axis=1)
+
+    for i, feat in enumerate(active_features):
+        for j, (_, row) in enumerate(merged.iterrows()):
+            raw_sentiment = row[feat]
+            confidence = row['confidence_factor']
+
+            X_adjusted[j, i] = raw_sentiment * confidence
+
+    norm_X = X_adjusted + 1
+
+    raw_weights = np.array([weights_dict[f] for f in active_features], dtype=float)
+    w = raw_weights / np.sum(raw_weights) if np.sum(raw_weights) > 0 else np.ones_like(raw_weights) / len(raw_weights)
+
+    print(f"\n📊 Feature weights:")
+    for i, feat in enumerate(active_features):
+        print(f"  - {feat}: {w[i]:.2f}")
+
+    V = norm_X * w
+
+    ideal = np.max(V, axis=0)       
+    anti_ideal = np.min(V, axis=0)  
+
+    d_plus = np.sqrt(np.sum((V - ideal)**2, axis=1))   
+    d_minus = np.sqrt(np.sum((V - anti_ideal)**2, axis=1))  
+
+    denominator = d_plus + d_minus
+    scores = np.where(denominator > 0, d_minus / denominator, 0)
+
+    merged["topsis_score"] = scores
+    for i, feat in enumerate(active_features):
+        merged[f"adjusted_{feat}"] = X_adjusted[:, i]
+        merged[f"weighted_{feat}"] = (X_adjusted[:, i] + 1) * w[i]
+
+    print("\n📊 Full Ranked Laptops (Top 10):")
+    top_df = merged[["brand", "laptop_title_x", "price", "topsis_score", "num_reviews", "confidence_factor"]].sort_values("topsis_score", ascending=False).head(10)
+    print(top_df[["brand", "laptop_title_x", "price", "topsis_score", "num_reviews", "confidence_factor"]])
+
+    print("\n🎯 Top 3 Recommendations:")
+    top3 = merged.sort_values("topsis_score", ascending=False).head(3)
+    for i, row in top3.iterrows():
+        print(f"{i+1}. {row['brand']} {row['laptop_title_x']} - ${row['price']} (Score: {row['topsis_score']:.4f})")
+        print(f"   Based on {int(row['num_reviews'])} reviews with {row['confidence_factor']:.2f} confidence factor")
+
+        if 'average_rating' in row and row['average_rating'] > 0:
+            print(f"   Average rating: {row['average_rating']:.1f}/5 from {int(row['rating_number'])} ratings")
+
+        contributions = [(f, row[f"weighted_{f}"], row[f], row[f"adjusted_{f}"])
+                         for f in active_features]
+        contributions.sort(key=lambda x: abs(x[1]), reverse=True)
+
+        print("   Top factors:")
+        for f, weighted, raw, adjusted in contributions[:3]:
+            sentiment_level = "positive" if raw > 0.3 else "negative" if raw < -0.3 else "neutral"
+            confidence_impact = "" if abs(raw - adjusted) < 0.05 else f" (adjusted from {raw:.2f})"
+            print(f"     - {f}: {sentiment_level} ({adjusted:.2f}{confidence_impact})")
+
+    return merged.sort_values("topsis_score", ascending=False).reset_index(drop=True)
+
+user_input = {
+    "brand": "neutral",
+    "laptop_type": "everyday use",
+    "cpu": "core i7",
+    "gpu": "entry-level",
+    "os": "windows 11",
+    "screen_size": "15.6",
+    "resolution": "HD",
+    "ram": "16gb",
+    "budget": [800],
+    "storage_type": "ssd",
+    "storage": ["216gb ssd + 1TB ssd"],
+    "priorities": {
+        "Battery life": 5,
+        "Display": 3,
+        "Performance": 4,
+        "Build quality": 4,
+        "Gaming": 2,
+        "Graphics": 2,
+        "Sound": 3,
+        "Fans": 5,
+        "Cooling system": 3,
+        "Weight": 5,
+        "Price": 4
+    }
+}
+
+reviews_df = pd.read_csv("/content/All specifications.csv")
+
+filtered, relaxed = filter_laptops(user_input, df)
+if not filtered.empty:
+    rank_with_topsis(filtered, user_input["priorities"], reviews_df)
+
+end = time.time()
+print("Execution time:", end - start, "seconds")
